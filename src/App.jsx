@@ -2,6 +2,8 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Home from './components/macro/Home';
+import SearchResults from './components/macro/SearchResults';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {
   const [trackInfo, setTrackInfo] = useState(null);
@@ -34,42 +36,44 @@ function App() {
     fetchToken();
   }, [client_id, client_secret]);
 
-  const fetchTrackInfo = async () => {
+  const fetchTrackInfo = async (trackId) => {
     try {
-      const trackId = url.split('/').pop().split('?')[0];
-      const response = await axios.get(
-        `https://api.spotify.com/v1/tracks/${trackId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('spotifyToken')}`,
-          },
-        }
-      );
-      const data = response.data;
-      setTrackInfo(data);
-      localStorage.setItem('savedTrackInfo', JSON.stringify(data));
+      const token = localStorage.getItem('spotifyToken');
+      const trackResponse = await fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const trackData = await trackResponse.json();
+
+      const audioFeaturesResponse = await fetch(`https://api.spotify.com/v1/audio-features/${trackId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const audioFeaturesData = await audioFeaturesResponse.json();
+
+      const combinedTrackInfo = { ...trackData, ...audioFeaturesData };
+
+      setTrackInfo(combinedTrackInfo);
     } catch (error) {
       console.error('Error fetching track info:', error);
     }
   };
 
   const handleSearch = (inputUrl) => {
-    setUrl(inputUrl);
-    fetchTrackInfo();
+    const trackId = inputUrl.split('/').pop().split('?')[0];
+    setUrl(trackId);
+    fetchTrackInfo(trackId);
   };
 
   return (
-    <div className="App">
-      <Home handleSearch={handleSearch} />
-      {trackInfo && (
-        <div>
-          <h2>Track Information:</h2>
-          <p><strong>Name:</strong> {trackInfo.name}</p>
-          <p><strong>Artist:</strong> {trackInfo.artists.map((artist) => artist.name).join(', ')}</p>
-          <p><strong>Album:</strong> {trackInfo.album.name}</p>
-        </div>
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home handleSearch={handleSearch} />} />
+        <Route path="/results" element={<SearchResults trackInfo={trackInfo} handleSearch={handleSearch} />} />
+      </Routes>
+    </Router>
   );
 }
 

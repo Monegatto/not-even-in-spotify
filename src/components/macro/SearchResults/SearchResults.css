@@ -1,0 +1,42 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: 80px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.miniLogo {
+    font-weight: 600;
+    font-size: 3em;
+    margin: 0;
+}
+.searchBarWrapper {
+    width: 100%;
+}
+
+.songInfo {
+    display: flex;
+    justify-content: space-around;
+    background-color: #1E1E1E;
+    padding: 40px 0px;
+    margin-top: 40px;
+    width: 100%;
+}
+.songInfo img {
+    height: 200px;
+    width: 200px;
+    border-radius: 5%;
+}
+
+.songInfo p {
+    flex: 1 1 30%;
+    margin: 10px;
+    color: #fff;
+}
