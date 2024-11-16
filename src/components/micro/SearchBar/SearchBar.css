@@ -18,8 +18,3 @@ input {
     position: relative;
     left: -2rem;
 }
-
-.error-message {
-  color: red;
-  margin-top: 10px;
-}

@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Home from './components/macro/Home';
 import SearchResults from './components/macro/SearchResults';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   const [trackInfo, setTrackInfo] = useState(null);
   const [url, setUrl] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const client_id = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
   const client_secret = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
 
@@ -36,7 +37,7 @@ function App() {
     fetchToken();
   }, [client_id, client_secret]);
 
-  const fetchTrackInfo = async (trackId) => {
+  const fetchTrackInfo = async (trackId, callback) => {
     try {
       const token = localStorage.getItem('spotifyToken');
       const trackResponse = await fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
@@ -45,6 +46,12 @@ function App() {
         },
       });
       const trackData = await trackResponse.json();
+
+      if (trackData.error) {
+        setErrorMessage('Invalid URL. Please enter a valid song URL.');
+        if (callback) callback(false);
+        return;
+      }
 
       const audioFeaturesResponse = await fetch(`https://api.spotify.com/v1/audio-features/${trackId}`, {
         headers: {
@@ -56,22 +63,40 @@ function App() {
       const combinedTrackInfo = { ...trackData, ...audioFeaturesData };
 
       setTrackInfo(combinedTrackInfo);
+      setErrorMessage('');
+      if (callback) callback(true);
     } catch (error) {
       console.error('Error fetching track info:', error);
+      setErrorMessage('Failed to fetch track information. Please try again.');
+      if (callback) callback(false);
     }
   };
 
-  const handleSearch = (inputUrl) => {
+  const handleSearch = (inputUrl, callback) => {
+    setErrorMessage('');
+
+    if (!inputUrl) {
+      setErrorMessage('Please enter a song URL.');
+      if (callback) callback(false);
+      return;
+    }
+
     const trackId = inputUrl.split('/').pop().split('?')[0];
+    if (!trackId) {
+      setErrorMessage('Invalid URL. Please enter a valid song URL.');
+      if (callback) callback(false);
+      return;
+    }
+
     setUrl(trackId);
-    fetchTrackInfo(trackId);
+    fetchTrackInfo(trackId, callback);
   };
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home handleSearch={handleSearch} />} />
-        <Route path="/results" element={<SearchResults trackInfo={trackInfo} handleSearch={handleSearch} />} />
+        <Route path="/" element={<Home handleSearch={handleSearch} errorMessage={errorMessage} />} />
+        <Route path="/results" element={<SearchResults trackInfo={trackInfo} handleSearch={handleSearch} errorMessage={errorMessage} />} />
       </Routes>
     </Router>
   );

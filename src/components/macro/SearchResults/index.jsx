@@ -1,15 +1,17 @@
 import './SearchResults.css';
 import SearchBar from '../../micro/SearchBar';
 
-function SearchResults({ trackInfo, handleSearch }) {
+function SearchResults({ trackInfo, handleSearch, errorMessage }) {
   return (
     <div className='wrapper'>
       <div className='header'>
         <h1 className='miniLogo'>NEIS</h1>
         <div className='searchBarWrapper'>
           <SearchBar handleSearch={handleSearch} />
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
       </div>
+      
       {trackInfo && (
         <div className='songInfo'>
           <div>
