@@ -19,6 +19,7 @@ function SearchBar({ handleSearch }) {
   return (
     <div className="search-bar">
       <input
+        className="search-input"
         type="text"
         placeholder="Paste a song URL to see more details"
         value={inputValue}  
