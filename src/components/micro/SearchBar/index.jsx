@@ -2,7 +2,6 @@ import React, { memo, useState } from 'react';
 import './SearchBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
 
 function SearchBar({ handleSearch }) {
   const [inputValue, setInputValue] = useState('');
@@ -20,6 +19,7 @@ function SearchBar({ handleSearch }) {
   return (
     <div className="search-bar">
       <input
+        className="search-input"
         type="text"
         placeholder="Paste a song URL to see more details"
         value={inputValue}  
