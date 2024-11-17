@@ -93,7 +93,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router basename="/not-even-in-spotify/">
       <Routes>
         <Route path="/" element={<Home handleSearch={handleSearch} errorMessage={errorMessage} />} />
         <Route path="/results" element={<SearchResults trackInfo={trackInfo} handleSearch={handleSearch} errorMessage={errorMessage} />} />
