@@ -1,3 +1,4 @@
+import React, { memo, useState } from 'react';
 import './SearchBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -35,4 +36,4 @@ function SearchBar({ handleSearch }) {
   );
 }
 
-export default SearchBar;
+export default memo(SearchBar);

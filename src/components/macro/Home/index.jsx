@@ -1,3 +1,4 @@
+import React, { memo } from 'react';
 import './Home.css';
 import SearchBar from '../../micro/SearchBar';
 import { useNavigate } from 'react-router-dom';
@@ -22,4 +23,4 @@ function Home({ handleSearch, errorMessage }) {
   );
 }
 
-export default Home;
+export default memo(Home);

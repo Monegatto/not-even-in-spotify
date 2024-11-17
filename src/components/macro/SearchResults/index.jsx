@@ -1,3 +1,4 @@
+import React, { memo } from 'react';
 import './SearchResults.css';
 import SearchBar from '../../micro/SearchBar';
 
@@ -39,4 +40,4 @@ function SearchResults({ trackInfo, handleSearch, errorMessage }) {
   );
 }
 
-export default SearchResults;
+export default memo(SearchResults);
