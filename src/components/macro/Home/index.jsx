@@ -15,7 +15,7 @@ function Home({ handleSearch, errorMessage }) {
   };
 
   return (
-    <div>
+    <div className='home'>
       <h1 className="logo">Not Even In Spotify</h1>
       <SearchBar handleSearch={handleSearchAndNavigate} />
       {errorMessage && <p className="error-message">{errorMessage}</p>}
