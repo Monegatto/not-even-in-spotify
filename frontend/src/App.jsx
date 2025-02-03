@@ -38,31 +38,24 @@ function App() {
   }, [client_id, client_secret]);
 
   const fetchTrackInfo = async (trackId, callback) => {
+    const token = localStorage.getItem('spotifyToken'); // Token do Spotify
+
+    if (!trackId) {
+      setErrorMessage('Invalid URL. Please enter a valid song URL.');
+      if (callback) callback(false);
+      return;
+    }
+
     try {
-      const token = localStorage.getItem('spotifyToken');
-      const trackResponse = await fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
+      // Faz a requisição ao backend
+      const response = await axios.get(`http://localhost:3001/api/neis/tracks/${trackId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      const trackData = await trackResponse.json();
 
-      if (trackData.error) {
-        setErrorMessage('Invalid URL. Please enter a valid song URL.');
-        if (callback) callback(false);
-        return;
-      }
-
-      const audioFeaturesResponse = await fetch(`https://api.spotify.com/v1/audio-features/${trackId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const audioFeaturesData = await audioFeaturesResponse.json();
-
-      const combinedTrackInfo = { ...trackData, ...audioFeaturesData };
-
-      setTrackInfo(combinedTrackInfo);
+      // Atualiza o estado com as informações da música
+      setTrackInfo(response.data);
       setErrorMessage('');
       if (callback) callback(true);
     } catch (error) {
@@ -72,6 +65,7 @@ function App() {
     }
   };
 
+  // Função para lidar com a busca
   const handleSearch = (inputUrl, callback) => {
     setErrorMessage('');
 
@@ -81,6 +75,7 @@ function App() {
       return;
     }
 
+    // Extrai o trackId da URL
     const trackId = inputUrl.split('/').pop().split('?')[0];
     if (!trackId) {
       setErrorMessage('Invalid URL. Please enter a valid song URL.');
@@ -88,7 +83,7 @@ function App() {
       return;
     }
 
-    setUrl(trackId);
+    // Chama a função para buscar informações da música
     fetchTrackInfo(trackId, callback);
   };
 
