@@ -1,8 +1,22 @@
-# React + Vite
+# Not Even in Spotify 🎵
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bem-vindo ao repositório do **Not Even in Spotify**, um projeto desenvolvido como parte do curso **ES47B - Programação Web Fullstack**. Este aplicativo busca e exibe metadados de músicas utilizando a **API do Spotify**. 🚀
 
-Currently, two official plugins are available:
+## 🚀 Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** + **Vite**: Framework e ferramenta de construção para desenvolvimento rápido e eficiente.
+- **React Router**: Biblioteca para roteamento de páginas no React.
+- **Hook `useMemo`**: Otimização de performance ao memoizar valores computados.
+- **Spotify Web API**: Para buscar metadados de músicas.
+- **GitHub Pages**: Hospedagem do projeto na web.
+
+## 🌟 Funcionalidades
+
+- Busca de informações e metadados sobre músicas.
+- Roteamento para diferentes seções da aplicação.
+- Otimização de carregamento e reuso de dados.
+
+## 🌐 Acesse o Projeto
+
+Você pode visualizar a aplicação em funcionamento pelo seguinte link:  
+[**Not Even in Spotify**](https://monegatto.github.io/not-even-in-spotify/)  
