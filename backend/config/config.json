@@ -1,0 +1,23 @@
+{
+    "development": {
+      "username": "seu_usuario",
+      "password": "sua_senha",
+      "database": "spotify_project",
+      "host": "127.0.0.1",
+      "dialect": "postgres"
+    },
+    "test": {
+      "username": "seu_usuario",
+      "password": "sua_senha",
+      "database": "spotify_project_test",
+      "host": "127.0.0.1",
+      "dialect": "postgres"
+    },
+    "production": {
+      "username": "seu_usuario",
+      "password": "sua_senha",
+      "database": "spotify_project_prod",
+      "host": "127.0.0.1",
+      "dialect": "postgres"
+    }
+  }
