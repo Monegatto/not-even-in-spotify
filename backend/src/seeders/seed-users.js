@@ -1,6 +1,6 @@
 module.exports = {
     up: async (queryInterface) => {
-      await queryInterface.bulkInsert('Users', [{
+      await queryInterface.bulkInsert('User', [{
         username: 'admin',
         password_hash: 'senha_criptografada', // Use bcrypt para criptografar a senha
         createdAt: new Date(),
@@ -9,6 +9,6 @@ module.exports = {
     },
   
     down: async (queryInterface) => {
-      await queryInterface.bulkDelete('Users', null, {});
+      await queryInterface.bulkDelete('User', null, {});
     },
   };
