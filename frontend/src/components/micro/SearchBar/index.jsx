@@ -22,7 +22,7 @@ function SearchBar({ handleSearch }) {
         className="search-input"
         type="text"
         placeholder="Paste a song URL to see more details"
-        value={inputValue}  
+        value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
       />
