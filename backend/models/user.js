@@ -1,14 +1,35 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
+  }, {
+    tableName: 'User'  // Especifica o nome da tabela no banco de dados
+  });
 
-class User extends Model {}
+  // Hook para criptografar a senha antes de salvar no banco de dados
+  User.beforeCreate(async (user) => {
+    user.password = await bcrypt.hash(user.password, 10);
+  });
 
-User.init({
-  username: DataTypes.STRING,
-  password_hash: DataTypes.STRING
-}, {
-  sequelize,
-  modelName: 'User',
-});
+  User.associate = function (models) {
+    // Associações com outros modelos
+    User.hasMany(models.SearchHistory, {
+      foreignKey: 'userId',
+      as: 'searchHistories',
+    });
+  };
 
-module.exports = User;
+  return User;
+};
