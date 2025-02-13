@@ -27,3 +27,5 @@ dist-ssr
 
 # Ignorar certificados e chaves privadas
 *.pem
+
+/.cert
