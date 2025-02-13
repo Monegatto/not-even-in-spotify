@@ -27,7 +27,8 @@ fs
     );
   })
   .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    const modelFunc = require(path.join(__dirname, file)); // Get the model function
+    const model = modelFunc(sequelize, Sequelize.DataTypes); // Call function to define model
     db[model.name] = model;
   });
 
