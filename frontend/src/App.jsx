@@ -4,15 +4,21 @@ import Home from './components/macro/Home';
 import Login from './components/macro/Login';
 import SearchResults from './components/macro/SearchResults';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import History from './components/macro/History';
 
 function App() {
   const [trackInfo, setTrackInfo] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [token, setToken] = useState(localStorage.getItem('token') || '');
 
-  const handleLogin = (token) => {
-    localStorage.setItem('token', token);
-    setToken(token);
+  const handleLogin = (loginToken, spotifyToken) => {
+    // Armazenar o token de login no localStorage
+    localStorage.setItem('token', loginToken);
+    
+    // Armazenar o token do Spotify no sessionStorage
+    sessionStorage.setItem('spotifyToken', spotifyToken);
+    
+    setToken(loginToken);
   };
 
   const handleSearch = async (inputUrl, callback) => {
@@ -31,8 +37,16 @@ function App() {
       return;
     }
 
+    const spotifyToken = sessionStorage.getItem('spotifyToken'); // Pega o token do Spotify
+
+    if (!spotifyToken) {
+      setErrorMessage('Spotify token is missing. Please log in again.');
+      if (callback) callback(false);
+      return;
+    }
+
     try {
-      const response = await fetch(`http://localhost:3000/api/track/${trackId}`, {
+      const response = await fetch(`https://localhost:3000/api/track/${trackId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -59,6 +73,7 @@ function App() {
         <Route path="/" element={token ? <Home handleSearch={handleSearch} errorMessage={errorMessage} /> : <Login onLogin={handleLogin} />} />
         <Route path="/results" element={token ? <SearchResults trackInfo={trackInfo} handleSearch={handleSearch} errorMessage={errorMessage} /> : <Login onLogin={handleLogin} />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/history" element={<History />} />
       </Routes>
     </Router>
   );
