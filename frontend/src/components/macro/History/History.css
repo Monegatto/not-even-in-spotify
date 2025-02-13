@@ -1,0 +1,105 @@
+/* Estiliza o botão de voltar */
+.back-button {
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 0.87);
+  color: black;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  top: 20px; /* Distância do topo */
+  left: 20px; /* Distância da esquerda */
+  z-index: 10; /* Garantir que fique acima de outros elementos */
+}
+
+.back-button:hover {
+   -webkit-box-shadow: 0px 0px 17px 0px rgba(217,217,217,1);
+    -moz-box-shadow: 0px 0px 17px 0px rgba(217,217,217,1);
+    box-shadow: 0px 0px 17px 0px rgba(217,217,217,1);
+}
+
+/* Estiliza o container principal */
+.history-container {
+  max-width: 800px;
+  margin-top: 120px; /* Espaço para o botão de voltar e o título */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estiliza o cabeçalho com o botão e o título */
+.history-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #1D1B20; /* Fundo opaco */
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.history-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+}
+
+/* Mensagem de erro */
+.history-error {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Mensagem quando não há histórico */
+.history-empty {
+  color: #555;
+  text-align: center;
+}
+
+/* Lista de histórico */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 100px; /* Espaço adicional para compensar a área fixa */
+}
+
+/* Cada item do histórico */
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  height: 80px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Informações da música */
+.history-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Nome da música */
+.track-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Nome do artista */
+.artist-name {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Data e horário da busca */
+.search-time {
+  font-size: 12px;
+  color: #888;
+}
