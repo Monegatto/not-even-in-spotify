@@ -1,4 +1,7 @@
 .login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
@@ -21,15 +24,13 @@
 }
 
 button {
-  width: 97%;
+  width: 100%;
   padding: 10px;
-  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
+} 
+.login-container input {
+  width: auto;
 }

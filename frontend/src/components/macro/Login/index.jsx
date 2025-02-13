@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 function Login({ onLogin }) {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
@@ -12,12 +12,13 @@ function Login({ onLogin }) {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3000/auth/login', {
+      // Enviar a requisição para o backend de login do usuário
+      const response = await fetch('https://localhost:3000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
@@ -25,9 +26,17 @@ function Login({ onLogin }) {
         throw new Error(errorData.error || 'Login failed');
       }
 
-      const { token } = await response.json();
+      const { token } = await response.json(); // Esperando ambos os tokens
+
+      // Armazenando o token de login no localStorage
       localStorage.setItem('token', token);
+
+      // Armazenando o token do Spotify no sessionStorage
+
+      // Chama a função onLogin passando o token de login (não é mais necessário passar o spotifyToken aqui)
       onLogin(token);
+
+      // Navega para a página principal após login bem-sucedido
       navigate('/');
     } catch (error) {
       setErrorMessage(error.message || 'Invalid credentials. Please try again.');
@@ -39,12 +48,12 @@ function Login({ onLogin }) {
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="email">Email:</label>
           <input
             type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>

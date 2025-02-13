@@ -1,14 +1,11 @@
-.header {
+header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     width: 100%;
     position: fixed;
+    justify-content: space-between;
+    align-items: center;
     top: 0;
-    left: 0;
     background-color: #1E1E1E;
-    padding: 20px 20px 10px;
-    z-index: 1000;
 }
 
 .wrapper {
@@ -16,7 +13,7 @@
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    width: 60%;
+    width: 50%;
     margin-top: 120px;
 }
 
@@ -25,17 +22,24 @@
     font-size: 3em;
     margin: 0;
     color: #fff;
+    margin-left: 30px;
 }
 
 .miniLogo-link {
     text-decoration: none;
 }
 
+.buttons {
+    display: flex;
+    height: 50%;
+    justify-content: space-between;
+    padding-right: 20px;
+}
+
 .searchBarWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
 }
 
 .songInfo {
@@ -51,9 +55,11 @@
 .songInfo .mainInfo {
     flex: 1 1 45%;
     margin: 10px;
-    font-size: 1.2rem;
 }
 
+.historyButton {
+    margin-right: 20px;
+}
 .songInfo img {
     height: 300px;
     width: 300px;
@@ -61,16 +67,11 @@
     margin-bottom: 20px;
 }
 
-.songInfo p {
-    color: #fff;
-}
-
 .secondaryInfo {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     flex: 1 1 45%;
-    font-size: 1rem;
 }
 
 .infoHeader {
@@ -85,7 +86,6 @@
 
 .infoValue {
     color: #fff;
-    font-size: 1rem;
 }
 
 .info-icon {
@@ -95,11 +95,11 @@
 }
 
 .error-message {
-    text-align: center;
     color: red;
     font-size: 15px;
 }
 
+/* Responsive Styles */
 @media (max-width: 768px) {
     .wrapper {
         width: 90%;
@@ -108,11 +108,6 @@
     .songInfo {
         flex-direction: column;
         padding: 20px;
-    }
-
-    .songInfo .mainInfo {
-        width: 100%;
-        margin-bottom: 20px;
     }
 
     .secondaryInfo {
@@ -136,11 +131,6 @@
         padding: 15px;
     }
 
-    .songInfo .mainInfo {
-        width: 100%;
-        margin-bottom: 15px;
-    }
-
     .secondaryInfo {
         grid-template-columns: 1fr;
         gap: 8px;
@@ -153,9 +143,5 @@
 
     .miniLogo {
         font-size: 2em;
-    }
-
-    .searchBarWrapper {
-        width: 100%;
     }
 }
