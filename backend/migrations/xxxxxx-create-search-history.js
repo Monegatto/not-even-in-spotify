@@ -7,10 +7,6 @@ module.exports = {
           primaryKey: true,
           autoIncrement: true,
         },
-        query: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
         trackName: {
           type: Sequelize.STRING,
           allowNull: false,
