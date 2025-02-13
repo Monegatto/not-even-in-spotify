@@ -4,6 +4,13 @@
     "password": "postgres",
     "database": "spotify_project",
     "host": "127.0.0.1",
+    "pool": {
+      "max": 10,       
+      "min": 0,        
+      "acquire": 30000, 
+      "idle": 10000   
+    },
+
     "dialect": "postgres"
   }
 }
